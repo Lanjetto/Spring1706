@@ -1,6 +1,7 @@
 package com.nexign.springMessageSender.factory;
 
 import com.nexign.springMessageSender.annotation.Inject;
+import com.nexign.springMessageSender.context.ApplicationContext;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Field;
@@ -9,13 +10,19 @@ import java.util.Set;
 
 public class BeanFactory {
 
-    private BeanFactory() {}
+    private ApplicationContext applicationContext;
 
-    private static final BeanFactory BEAN_FACTORY = new BeanFactory();
-
-    public static BeanFactory getInstance() {
-        return BEAN_FACTORY;
+    public BeanFactory(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
+
+    //    private BeanFactory() {}
+//
+//    private static final BeanFactory BEAN_FACTORY = new BeanFactory();
+//
+//    public static BeanFactory getInstance() {
+//        return BEAN_FACTORY;
+//    }
     public <T> T getBean(Class<T> tClass) {
         Class<? extends T> implClass = tClass;
         if (implClass.isInterface()) {
@@ -40,7 +47,7 @@ public class BeanFactory {
             if (declaredField.isAnnotationPresent(Inject.class)) {
                 declaredField.setAccessible(true);
                 try {
-                    declaredField.set(bean, BEAN_FACTORY.getBean(declaredField.getType()));
+                    declaredField.set(bean, applicationContext.getBean(declaredField.getType()));
                 } catch (IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
