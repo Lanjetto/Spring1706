@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MessageSender {
-    @Autowired
+
     private IMessage message;
     private Destination destination;
 
