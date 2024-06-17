@@ -4,18 +4,16 @@ import com.nexign.springMessageSender.model.Message;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.nexign.springMessageSender")
+@PropertySource("classpath:application.properties")
 public class BeanConfig {
 
-    @Bean
-    public Message getMessage() {
-        return new Message();
-    }
 
     @Bean
     public DataSource dataSource() {
