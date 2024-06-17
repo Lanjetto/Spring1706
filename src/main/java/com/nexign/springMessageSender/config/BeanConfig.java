@@ -17,6 +17,7 @@ public class BeanConfig {
         return new Message();
     }
 
+    @Bean
     public DataSource dataSource() {
         return new DriverManagerDataSource(
                 "jdbc:h2:mem:testdb;" +

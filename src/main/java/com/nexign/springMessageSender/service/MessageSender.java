@@ -1,11 +1,9 @@
 package com.nexign.springMessageSender.service;
 
-import com.nexign.springMessageSender.annotation.Inject;
-import com.nexign.springMessageSender.factory.BeanFactory;
 import com.nexign.springMessageSender.model.Destination;
 import com.nexign.springMessageSender.model.IMessage;
 import com.nexign.springMessageSender.model.Message;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nexign.springMessageSender.repository.MessageSenderDAO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,10 +12,13 @@ public class MessageSender {
     private IMessage message;
     private Destination destination;
 
+    private MessageSenderDAO messageSenderDAO;
+
     // IoC
-    public MessageSender(Message message, Destination destination) {
+    public MessageSender(Message message, Destination destination, MessageSenderDAO messageSenderDAO) {
         this.message = message;
         this.destination = destination;
+        this.messageSenderDAO = messageSenderDAO;
     }
 
     public IMessage getMessage() {
@@ -29,6 +30,6 @@ public class MessageSender {
     }
 
     public void sendMessage() {
-        System.out.println(message + " отправлено в " + destination);
+        messageSenderDAO.sendMessage("Hello");
     }
 }
