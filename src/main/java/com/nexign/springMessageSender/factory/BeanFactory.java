@@ -1,7 +1,9 @@
 package com.nexign.springMessageSender.factory;
 
+import com.nexign.springMessageSender.annotation.Inject;
 import org.reflections.Reflections;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 
@@ -20,9 +22,10 @@ public class BeanFactory {
             implClass = getImpl(implClass);
         }
 
+        T bean = null;
 
         try {
-            return implClass.getDeclaredConstructor().newInstance();
+            bean = implClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
@@ -32,6 +35,19 @@ public class BeanFactory {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
+
+        for (Field declaredField : implClass.getDeclaredFields()) {
+            if (declaredField.isAnnotationPresent(Inject.class)) {
+                declaredField.setAccessible(true);
+                try {
+                    declaredField.set(bean, BEAN_FACTORY.getBean(declaredField.getType()));
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return bean;
+
     }
 
     public <T> Class<? extends T> getImpl(Class<T> tClass) {

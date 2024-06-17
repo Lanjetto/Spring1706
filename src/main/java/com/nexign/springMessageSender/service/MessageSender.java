@@ -1,13 +1,16 @@
 package com.nexign.springMessageSender.service;
 
+import com.nexign.springMessageSender.annotation.Inject;
 import com.nexign.springMessageSender.factory.BeanFactory;
 import com.nexign.springMessageSender.model.Destination;
 import com.nexign.springMessageSender.model.IMessage;
 import com.nexign.springMessageSender.model.Message;
 
 public class MessageSender {
-    private IMessage message = BeanFactory.getInstance().getBean(IMessage.class);
-    private Destination destination = BeanFactory.getInstance().getBean(Destination.class);
+    @Inject
+    private IMessage message;
+    @Inject
+    private Destination destination;
 
     // IoC
 //    public MessageSender(Message message, Destination destination) {
