@@ -5,18 +5,20 @@ import com.nexign.springMessageSender.factory.BeanFactory;
 import com.nexign.springMessageSender.model.Destination;
 import com.nexign.springMessageSender.model.IMessage;
 import com.nexign.springMessageSender.model.Message;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MessageSender {
-    @Inject
+    @Autowired
     private IMessage message;
-    @Inject
     private Destination destination;
 
     // IoC
-//    public MessageSender(Message message, Destination destination) {
-//        this.message = message;
-//        this.destination = destination;
-//    }
+    public MessageSender(Message message, Destination destination) {
+        this.message = message;
+        this.destination = destination;
+    }
 
     public IMessage getMessage() {
         return message;
