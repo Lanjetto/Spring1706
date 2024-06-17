@@ -2,11 +2,12 @@ package com.nexign.springMessageSender.service;
 
 import com.nexign.springMessageSender.factory.BeanFactory;
 import com.nexign.springMessageSender.model.Destination;
+import com.nexign.springMessageSender.model.IMessage;
 import com.nexign.springMessageSender.model.Message;
 
 public class MessageSender {
-    private Message message = BeanFactory.getBean(Message.class);
-    private Destination destination = BeanFactory.getBean(Destination.class);
+    private IMessage message = BeanFactory.getInstance().getBean(IMessage.class);
+    private Destination destination = BeanFactory.getInstance().getBean(Destination.class);
 
     // IoC
 //    public MessageSender(Message message, Destination destination) {
@@ -14,7 +15,7 @@ public class MessageSender {
 //        this.destination = destination;
 //    }
 
-    public Message getMessage() {
+    public IMessage getMessage() {
         return message;
     }
 
