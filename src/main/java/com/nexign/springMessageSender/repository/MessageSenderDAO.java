@@ -13,12 +13,12 @@ import javax.sql.DataSource;
 public class MessageSenderDAO {
     @Autowired
     private DataSource dataSource;
-
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @PostConstruct
     public void init() {
-        jdbcTemplate = new JdbcTemplate(dataSource);
+//        jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.execute("CREATE TABLE messages (id INT AUTO_INCREMENT PRIMARY KEY, text VARCHAR(255))");
     }
 

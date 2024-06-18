@@ -11,26 +11,20 @@ import java.util.Arrays;
 @Component
 public class MessageSender {
 
-    private IMessage message;
     private Destination destination;
     private MessageSenderDAO messageSenderDAO;
 
     // IoC
-    public MessageSender(Message message, Destination destination, MessageSenderDAO messageSenderDAO) {
-        this.message = message;
+    public MessageSender(Destination destination, MessageSenderDAO messageSenderDAO) {
         this.destination = destination;
         this.messageSenderDAO = messageSenderDAO;
-    }
-
-    public IMessage getMessage() {
-        return message;
     }
 
     public Destination getDestination() {
         return destination;
     }
 
-    public void sendMessage() {
+    public void sendMessage(Message message) {
         messageSenderDAO.sendMessage(message.getBody());
     }
 
