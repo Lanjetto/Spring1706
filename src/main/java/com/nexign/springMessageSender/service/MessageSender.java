@@ -6,12 +6,13 @@ import com.nexign.springMessageSender.model.Message;
 import com.nexign.springMessageSender.repository.MessageSenderDAO;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 public class MessageSender {
 
     private IMessage message;
     private Destination destination;
-
     private MessageSenderDAO messageSenderDAO;
 
     // IoC
@@ -30,6 +31,12 @@ public class MessageSender {
     }
 
     public void sendMessage() {
-        messageSenderDAO.sendMessage("Hello");
+        messageSenderDAO.sendMessage(message.getBody());
+    }
+
+    public void sendMessage(Message... messages) {
+        Arrays.stream(messages)
+                .peek(System.out::println)
+                .forEach(m -> messageSenderDAO.sendMessage(m.getBody()));
     }
 }

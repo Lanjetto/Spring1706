@@ -23,8 +23,8 @@ public class MessageSenderDAO {
     }
 
     public void sendMessage(String message) {
-        System.out.println("OK");
         jdbcTemplate.update("INSERT INTO messages (text) VALUES (?)", message);
+        System.out.println(message + " отправлено");
     }
 
 }
