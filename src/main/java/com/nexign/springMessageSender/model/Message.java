@@ -1,40 +1,41 @@
 package com.nexign.springMessageSender.model;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import jakarta.persistence.*;
 
-import java.util.Random;
+import java.lang.annotation.Target;
 
-//@Component
-//@Scope("prototype")
-public class Message implements IMessage {
+@Entity
+@Table(name = "messages")
+public class Message {
 
-//    @Value(value = "${random.strings}")
-//    private String[] randomStrings;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+//    @Column(name = "message")
     private String body;
 
     public Message(String body) {
         this.body = body;
     }
 
-    //    @PostConstruct
-//    public void init() {
-//        Random random = new Random();
-//        int i = random.nextInt(randomStrings.length);
-//        this.body =randomStrings[i];
-//    }
+    public Message() {
+    }
 
-//    @PreDestroy
-//    public void destr() {
-//        System.out.println("Good bye!");
-//    }
-
-    @Override
     public String getBody() {
         return body;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.nexign.springMessageSender.service;
 import com.nexign.springMessageSender.model.Destination;
 import com.nexign.springMessageSender.model.IMessage;
 import com.nexign.springMessageSender.model.Message;
+import com.nexign.springMessageSender.repository.MessageRepository;
 import com.nexign.springMessageSender.repository.MessageSenderDAO;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +13,12 @@ import java.util.Arrays;
 public class MessageSender {
 
     private Destination destination;
-    private MessageSenderDAO messageSenderDAO;
+    private MessageRepository messageRepository;
 
     // IoC
-    public MessageSender(Destination destination, MessageSenderDAO messageSenderDAO) {
+    public MessageSender(Destination destination, MessageRepository messageRepository) {
         this.destination = destination;
-        this.messageSenderDAO = messageSenderDAO;
+        this.messageRepository = messageRepository;
     }
 
     public Destination getDestination() {
@@ -25,12 +26,20 @@ public class MessageSender {
     }
 
     public void sendMessage(Message message) {
-        messageSenderDAO.sendMessage(message.getBody());
+        messageRepository.save(message);
     }
 
     public void sendMessage(Message... messages) {
         Arrays.stream(messages)
                 .peek(System.out::println)
-                .forEach(m -> messageSenderDAO.sendMessage(m.getBody()));
+                .forEach(m -> messageRepository.save(m));
+    }
+
+    public Message getMessageById(Long id) {
+        return messageRepository.findById(id).orElseThrow();
+    }
+
+    public Message getMessageByBody(String s) {
+        return messageRepository.findByBodyLike(s);
     }
 }

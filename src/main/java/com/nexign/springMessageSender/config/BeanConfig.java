@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.nexign.springMessageSender")
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yml")
 public class BeanConfig {
 
 
