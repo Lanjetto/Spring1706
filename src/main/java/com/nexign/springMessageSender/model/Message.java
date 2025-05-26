@@ -1,18 +1,10 @@
 package com.nexign.springMessageSender.model;
 
-import jakarta.persistence.*;
 
-import java.lang.annotation.Target;
-
-@Entity
-@Table(name = "messages")
 public class Message {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "message")
     private String body;
 
     public Message(String body) {
