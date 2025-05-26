@@ -1,19 +1,23 @@
 package com.nexign.springMessageSender.model;
 
+import org.springframework.stereotype.Component;
 
-public class Message {
+@Component
+public class Message implements IMessage {
 
     private Long id;
 
     private String body;
 
     public Message(String body) {
+        this.id = 1L;
         this.body = body;
     }
 
     public Message() {
+        this.body = "They are coming";
     }
-
+    @Override
     public String getBody() {
         return body;
     }
