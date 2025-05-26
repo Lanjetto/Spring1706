@@ -1,5 +1,6 @@
 package com.nexign.springMessageSender.service;
 
+import com.nexign.springMessageSender.dao.MessageDAO;
 import com.nexign.springMessageSender.model.Destination;
 import com.nexign.springMessageSender.model.IMessage;
 import com.nexign.springMessageSender.model.Message;
@@ -11,14 +12,13 @@ public class MessageSender {
 //    @Autowired
     private Destination destination;
     private IMessage message;
+    private MessageDAO messageDAO;
 
     @Autowired
-    public MessageSender(Destination destination, Message message) {
+    public MessageSender(Destination destination, Message message, MessageDAO messageDAO) {
         this.destination = destination;
         this.message = message;
-    }
-
-    public MessageSender() {
+        this.messageDAO = messageDAO;
     }
 
     public Destination getDestination() {
@@ -33,5 +33,7 @@ public class MessageSender {
         System.out.println("Message " + message.getBody()
                 + " delivered to " + destination.getCity() + " "
                 + destination.getTime());
+
+        messageDAO.send(message,destination);
     }
 }

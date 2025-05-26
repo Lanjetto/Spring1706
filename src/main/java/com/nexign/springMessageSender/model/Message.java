@@ -1,6 +1,10 @@
 package com.nexign.springMessageSender.model;
 
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.Random;
 
 @Component
 public class Message implements IMessage {
@@ -9,14 +13,23 @@ public class Message implements IMessage {
 
     private String body;
 
-    public Message(String body) {
-        this.id = 1L;
-        this.body = body;
+    @Value("${messages.presets}")
+    private String rawMessages;
+
+    @PostConstruct
+    public void init() {
+        String[] messages = rawMessages.split(", ");
+        Random random = new Random();
+        this.body = messages[random.nextInt(messages.length)];
+
+        System.out.println(body);
     }
 
-    public Message() {
-        this.body = "They are coming";
-    }
+//    public Message(String body) {
+//        this.id = 1L;
+//        this.body = body;
+//    }
+
     @Override
     public String getBody() {
         return body;
