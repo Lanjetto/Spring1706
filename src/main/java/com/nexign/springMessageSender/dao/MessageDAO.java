@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
-@Component
+//@Component
 public class MessageDAO {
-    @Autowired
+//    @Autowired
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.execute(

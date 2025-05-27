@@ -13,11 +13,11 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation 'org.reflections:reflections:0.10.2'
-    implementation("org.springframework:spring-context:6.2.7")
     implementation("com.h2database:h2:2.3.232")
     implementation("org.springframework:spring-jdbc:6.2.7")
-    implementation("jakarta.annotation:jakarta.annotation-api:3.0.0")
-
+    implementation("org.springframework.boot:spring-boot-starter-web:3.5.0")
+    implementation("org.projectlombok:lombok:1.18.38")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.0")
 
 }
 

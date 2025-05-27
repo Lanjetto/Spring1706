@@ -1,39 +1,40 @@
 package com.nexign.springMessageSender.service;
 
-import com.nexign.springMessageSender.dao.MessageDAO;
+import com.nexign.springMessageSender.entity.MessageEntity;
 import com.nexign.springMessageSender.model.Destination;
-import com.nexign.springMessageSender.model.IMessage;
 import com.nexign.springMessageSender.model.Message;
+import com.nexign.springMessageSender.repository.MessageRepository;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
+@Data
 public class MessageSender {
-//    @Autowired
-    private Destination destination;
-    private IMessage message;
-    private MessageDAO messageDAO;
+
+    private MessageRepository messageRepository;
 
     @Autowired
-    public MessageSender(Destination destination, Message message, MessageDAO messageDAO) {
-        this.destination = destination;
-        this.message = message;
-        this.messageDAO = messageDAO;
+    public MessageSender(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
     }
 
-    public Destination getDestination() {
-        return destination;
+
+    public String sendMessage(Message message, Destination destination) {
+        MessageEntity messageEntity = new MessageEntity(message.getBody(),destination.getCity());
+        messageRepository.save(messageEntity);
+        return "Message " + message.getBody()
+                + " delivered to " + destination.getCity();
     }
 
-    public IMessage getMessage() {
-        return message;
+
+    public List<MessageEntity> getMessages() {
+        return messageRepository.findAll();
     }
 
-    public void sendMessage() {
-        System.out.println("Message " + message.getBody()
-                + " delivered to " + destination.getCity() + " "
-                + destination.getTime());
-
-        messageDAO.send(message,destination);
+    public List<MessageEntity> getDestinationMessage(String city) {
+        return messageRepository.findByDestinationLike(city);
     }
 }
