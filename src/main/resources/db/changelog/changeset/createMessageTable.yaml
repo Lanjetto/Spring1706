@@ -4,30 +4,20 @@ databaseChangeLog:
       author: Alex
       changes:
         - createTable:
-            tableName: message
+            tableName: messages
             columns:
               - column:
-                  name: message_id
+                  name: id
                   type: SERIAL
                   constraints:
                     primaryKey: true
               - column:
-                  name: sender_id
-                  type: INT
-                  constraints:
-                    nullable: false
-              - column:
-                  name: receiver_id
-                  type: INT
-                  constraints:
-                    nullable: false
-              - column:
-                  name: message_text
+                  name: message
                   type: TEXT
                   constraints:
                     nullable: false
               - column:
-                  name: timestamp
-                  type: TIMESTAMP
+                  name: destination
+                  type: TEXT
                   constraints:
-                    defaultValueComputed: CURRENT_TIMESTAMP
+                    nullable: false

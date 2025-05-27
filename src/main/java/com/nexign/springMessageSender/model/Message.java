@@ -18,6 +18,10 @@ public class Message implements IMessage {
         this.body = body;
     }
 
+    public Message(String body) {
+        this.body = body;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
